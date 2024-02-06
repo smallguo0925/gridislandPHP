@@ -8,7 +8,7 @@ header("Content-Type: application/json");
 
 try {
 	//連線
-    require_once("../GridIsland/connectGridIsland.php");
+    require_once("../connectGridIsland.php");
 
     //準備sql指令
 	$sql = "insert into news (news_title, news_content, news_category, news_img)
