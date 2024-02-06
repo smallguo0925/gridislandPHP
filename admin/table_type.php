@@ -10,10 +10,10 @@ header("Content-Type: application/json");
 
 try {
 	//連線到剛建立的connect檔
-    require_once("../GridIsland/connectGridIsland.php");
+    require_once("../connectGridIsland.php");
 
   //準備sql指令，我要拿table_type裡全部的資料，到時候有帳號密碼的檔案不能這樣拿。
-	$sql = "select * from table_type";
+	$sql = "SELECT * FROM `table_type`";
 
   // 建立PDO Statement，原本的寫法會是
     //   $pdoStatement = $pdo->query($sql);
