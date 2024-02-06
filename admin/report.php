@@ -1,5 +1,4 @@
 <?
-//需請教董老師，上線後是否把以下註解
 //跨域的設定
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
@@ -9,16 +8,12 @@ header("Content-Type: application/json");
 
 try {
 	//連線到剛建立的connect檔
-    require_once("../../GridIsland/connectGridIsland.php");
+  require_once("../../GridIsland/connectGridIsland.php");
 
-  //準備sql指令，我要拿news裡全部的資料，到時候有帳號密碼的檔案不能這樣拿。
-	// $sql = "select * from report";
   $sql = "select r.report_id, r.report_reason, m.msg_content, r.report_state, r.report_check from report r join msg m on r.msg_id = m.msg_id ";
 
   // 建立PDO Statement，原本的寫法會是$pdoStatement = $pdo->query($sql);
-	//為方便使用閱讀，將$pdoStatement設定為$news
   $report = $pdo->query($sql);
-	//因為前面用select，這裡用query即可
   //沒有未知數(前台傳進來的資料)用query就好
 
   $reportRows = $report->fetchAll(PDO::FETCH_ASSOC);
