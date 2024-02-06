@@ -12,7 +12,7 @@ try {
     // 引入資料庫連接設定檔案
     require_once("../connectGridIsland.php");
     // 準備從 mem 表中選擇所有記錄的 SQL 查詢
-    $sql = "SELECT * FROM mem";
+    $sql = "select * from mem";
     // 執行 SQL 查詢，返回 PDOStatement 物件
     $mem = $pdo->query($sql);
     // 從 PDOStatement 物件中取得所有記錄，以關聯陣列格式
