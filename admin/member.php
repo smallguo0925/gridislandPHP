@@ -5,20 +5,20 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 //允許的請求標頭
 header("Access-Control-Allow-Headers: Content-Type");
-//設定回應類型為 JSON
+//設定回應類型為 JSON安安
 header("Content-Type: application/json");
 
 try {
     // 引入資料庫連接設定檔案
-    require_once("../GridIsland/connectGridIsland.php");
+    require_once('../GRIDSLAND/connectGridIsland.php');
     // 準備從 mem 表中選擇所有記錄的 SQL 查詢
     $sql = "SELECT * FROM mem";
     // 執行 SQL 查詢，返回 PDOStatement 物件
-    $members = $pdo->query($sql);
+    $mem = $pdo->query($sql);
     // 從 PDOStatement 物件中取得所有記錄，以關聯陣列格式
-    $memberRows = $members->fetchAll(PDO::FETCH_ASSOC);
+    $memRows = $mem->fetchAll(PDO::FETCH_ASSOC);
     // 準備要回傳的數據，包括錯誤狀態、訊息和會員資料
-    $result = ["error" => false, "msg" => "", "mem" => $memberRows];
+    $result = ["error" => false, "msg" => "", "mem" => $memRows];
 } catch (PDOException $e) {
     // 捕捉到 PDOException，設置錯誤狀態和錯誤訊息
     $result = ["error" => true, "msg" => $e->getMessage()];
