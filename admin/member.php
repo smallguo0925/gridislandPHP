@@ -10,7 +10,7 @@ header("Content-Type: application/json");
 
 try {
     // 引入資料庫連接設定檔案
-    require_once('../GRIDSLAND/connectGridIsland.php');
+    require_once("../connectGridIsland.php");
     // 準備從 mem 表中選擇所有記錄的 SQL 查詢
     $sql = "SELECT * FROM mem";
     // 執行 SQL 查詢，返回 PDOStatement 物件
@@ -25,4 +25,4 @@ try {
 }
 // 將結果編碼為 JSON 格式並輸出
 echo json_encode($result);
-?>
+?> 
