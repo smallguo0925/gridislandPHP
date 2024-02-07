@@ -8,6 +8,8 @@ header("Access-Control-Allow-Headers: Content-Type");
 //設定回應類型為 JSON安安
 header("Content-Type: application/json");
 
+ini_set("display_errors", "On"); //上線檢查用
+
 try {
     // 引入資料庫連接設定檔案
     require_once("../connectGridIsland.php");
