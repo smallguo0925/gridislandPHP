@@ -10,7 +10,7 @@ session_start();
 
 try{
   require_once("../connectGridIsland.php");
-  $sql = "select * from mem where mem_email=:memId and mem_psw=:memPsw"; 
+  $sql = "select mem_id, mem_name, mem_addr, mem_email, mem_tel, mem_game_state, mem_bug_state, mem_profile, mem_nickname, mem_gender, mem_birthday from mem where mem_email=:memId and mem_psw=:memPsw"; 
   $member = $pdo->prepare($sql);
 
   $member->bindValue(":memId", $_POST["mem_account"]);
