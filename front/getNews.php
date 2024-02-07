@@ -1,10 +1,10 @@
-<?
+<?php
 //要請問老師，上線後是否把該句註解
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
-
+ini_set("display_errors", "On");
 
 try {
 	//連線
