@@ -9,13 +9,13 @@ try {
     require_once("../connectGridIsland.php");
 
     //準備sql指令
-	$sql = "select * from promo where promo_state =1";
+	$sql = "select * from promo_record";
 
     // 建立PDO Statement
-    $promos = $pdo->query($sql);
+    $promoRecords = $pdo->query($sql);
 
-    $promosRow = $promos->fetchAll(PDO::FETCH_ASSOC);
-	$result = ["error" => false, "msg" => "", "promos" => $promosRow];
+    $promoRecordsRow = $promoRecords->fetchAll(PDO::FETCH_ASSOC);
+	$result = ["error" => false, "msg" => "", "promoRecords" => $promoRecordsRow];
 } catch (PDOException $e) {
     $result = ["error" => true, "msg" => $e->getMessage()];
 }
