@@ -3,50 +3,37 @@
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
-
 header("Content-Type: application/json");
 
 session_start(); //用session來記錄登入的狀況
-
+$data = json_decode(file_get_contents('php://input'), true);
 
 try {
-	//連線到剛建立的connect檔
-    require_once("../connectGridIsland.php");
+    // 從前端接收 mem_id
+    $mem_id = $data['mem_id'];
+    // 連線到資料庫
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "gridisland";
 
-  //準備sql指令，要拿table_type裡全部的資料。
-	$sql = "SELECT * FROM `mem`";
+    $dsn = "mysql:host=$servername;dbname=$dbname;charset=utf8mb4";
+    $pdo = new PDO($dsn, $username, $password);
 
-  // 建立PDO Statement，原本的寫法會是
-    //   $pdoStatement = $pdo->query($sql);
-	//為方便使用閱讀，將$pdoStatement設定為$mem
-  $mem = $pdo->query($sql);
-	//因為前面用select，這裡用query即可
+    // 準備 SQL 指令，根據 mem_id 查詢會員資料
+    $sql = "SELECT * FROM mem WHERE mem_id = :mem_id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':mem_id', $mem_id, PDO::PARAM_INT);
+    $stmt->execute();
 
-  $memRows = $mem->fetchAll(PDO::FETCH_ASSOC);
-	$result = ["error" => false, "msg" => "", "mem" => $memRows];
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
 } catch (PDOException $e) {
-    $result = ["error" => true, "msg" => $e->getMessage()];
+    // 處理異常
+    echo "Error: " . $e->getMessage();
 }
 echo json_encode($result);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ?>
