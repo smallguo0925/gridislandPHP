@@ -12,7 +12,7 @@ try {
   $sql = "
     SELECT 
     ms.msg_id, ms.mem_id, ms.msg_content, ms.msg_state, ms.msg_datetime,
-    me.mem_name, me.mem_nickname, 
+    me.mem_name, me.mem_nickname, me.mem_profile,
     re.report_state,
     (
       SELECT
@@ -21,7 +21,9 @@ try {
             'reply_id', re.reply_id,
             'reply_content', re.reply_content,
             'reply_time', re.reply_time,
-            'reply_memName', me.mem_name
+            'reply_memName', me.mem_name,
+            'reply_nickName', me.mem_nickname,
+            'reply_memProfile', me.mem_profile
           )
         )
       FROM reply re
@@ -30,7 +32,7 @@ try {
     ) AS replies
     FROM msg ms 
     JOIN mem me ON ms.mem_id = me.mem_id
-    JOIN report re ON re.msg_id = ms.msg_id;
+    LEFT JOIN report re ON re.msg_id = ms.msg_id;
   ";
 
   // 建立PDO Statement
