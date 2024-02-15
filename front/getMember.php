@@ -37,7 +37,7 @@ try {
         $bookInfo->execute();
         $bookInfoRow = $bookInfo->fetchAll(PDO::FETCH_ASSOC);
 
-        //屬於這個會員的訂單資料
+        //屬於這個會員的訂單資料以及訂單明細
         $sql="SELECT * from ord where mem_id = :mem_id";
         $orderInfo=$pdo->prepare($sql);
         $orderInfo->bindParam(':mem_id', $mem_id, PDO::PARAM_INT);
@@ -62,7 +62,20 @@ try {
 
 
         //屬於這個會員的訂單明細資料
-        //這怎麼抓我要想一下嗚嗚嗚
+
+        $sql="SELECT o.ord_id,ord_date,prod_img1,prod_name,ord_item_price,ord_item_qty, ord_item_price*ord_item_qty as 'total'
+        from ord o
+        join ord_item oi on(o.ord_id = oi.ord_id)
+        join prod p on(oi.prod_id = p.prod_id)
+        where o.mem_id = :mem_id";
+        
+        $orderListInfo=$pdo->prepare($sql);
+        $orderListInfo->bindParam(':mem_id', $mem_id, PDO::PARAM_INT);
+        $orderListInfo->execute();
+        $orderListInfoRow = $orderListInfo->fetchAll(PDO::FETCH_ASSOC);
+
+
+
 
 
         $result = [
@@ -73,7 +86,7 @@ try {
             "orderInfo"=>$orderInfoRow,
             "undoneOrder"=>$undoneOrderRow,
             "completedOrder"=>$completedOrderRow,
-            // "orderListInfo"=>$orderListInfoRow,
+            "orderListInfo"=>$orderListInfoRow,
         ];
 
     }
