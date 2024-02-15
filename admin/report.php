@@ -10,7 +10,8 @@ try {
 	//連線到剛建立的connect檔
   require_once("../../GridIsland/connectGridIsland.php");
 
-  $sql = "select r.report_id, r.report_reason, m.msg_content, r.report_state, r.report_check from report r join msg m on r.msg_id = m.msg_id ";
+  $sql = "select r.report_id, r.report_reason, m.msg_content, r.report_state, r.report_check 
+  from report r join msg m on r.msg_id = m.msg_id ";
 
   // 建立PDO Statement，原本的寫法會是$pdoStatement = $pdo->query($sql);
   $report = $pdo->query($sql);
