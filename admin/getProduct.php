@@ -13,7 +13,7 @@ try {
     from prod p 
     left join prod_tag pt on (p.prod_id = pt.prod_id)
     left join tag t on (pt.tag_id = t.tag_id)
-    where p.prod_state = 1";
+    ";
 
     // 建立PDO Statement
     $prods = $pdo->query($sql);
