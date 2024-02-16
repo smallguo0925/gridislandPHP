@@ -10,7 +10,7 @@ try {
     require_once("../connectGridIsland.php");
 
     //準備sql指令
-	$sql = "select * from news";
+	$sql = "SELECT * FROM news";
 
     // 建立PDO Statement
     $news = $pdo->query($sql);

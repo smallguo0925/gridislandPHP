@@ -11,7 +11,7 @@ try {
     require_once("../connectGridIsland.php");
 
     //準備sql指令
-	$sql = "select * from news";
+	$sql = "select * from news WHERE news_state = 1";
 
     // 建立PDO Statement
     $news = $pdo->query($sql);
