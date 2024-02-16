@@ -17,7 +17,19 @@ try {
 
     // 建立PDO Statement
     $prods = $pdo->query($sql);
-    $result = ["error" => false, "msg" => "成功取得商品資料", "products" => []];
+    $sql = "select count(*) from prod";
+    $allProd = $pdo->query($sql);
+    $allProdCount = $allProd->fetch(PDO::FETCH_ASSOC);
+    $sql = "select count(*) from prod where prod_state = 1";
+    $pProd = $pdo->query($sql);
+    $pProdCount = $pProd->fetch(PDO::FETCH_ASSOC);
+    $sql = "select count(*) from prod where prod_state = 0";
+    $upProd = $pdo->query($sql);
+    $upProdCount = $upProd->fetch(PDO::FETCH_ASSOC);
+    $sql = "select count(*) from prod where prod_discount_price is not null";
+    $disProd = $pdo->query($sql);
+    $disProdCount = $disProd->fetch(PDO::FETCH_ASSOC);
+    $result = ["error" => false, "msg" => "成功取得商品資料", "products" => [],"allProd"=>$allProdCount,"pProd"=>$pProdCount,"upProd"=>$upProdCount,"disProd"=>$disProdCount];
     while($row = $prods->fetch(PDO::FETCH_ASSOC)){
         $productId = $row['prod_id'];
         $productName = $row['prod_name'];
@@ -55,6 +67,7 @@ try {
             $result['products'][$productId]['tags'][] = $tag;
         }
     }
+
     $result['products'] = array_values($result['products']);
 } catch (PDOException $e) {
     $result = ["error" => true, "msg" => $e->getMessage()];
