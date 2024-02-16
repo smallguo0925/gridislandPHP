@@ -1,6 +1,5 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: multipart/form-data"); //上傳內容包含圖片。故使用form
 
@@ -62,32 +61,34 @@ try {
 
     require_once("../connectGridIsland.php");
 
-    //檢查連線是否成功
-    // if ($pdo->connect_error) {
-    //     die("連線失敗: " . $pdo->connect_error);
-    // }
-
-    $data = json_decode(file_get_contents("php://input"), true);
+    $input = json_decode(file_get_contents("php://input"), true);
 
 
-    $sql ="update news set
+    $newsId = $input["news_id"];
+    $newsTitle = $input["news_title"];
+    $newsContent = $input["news_content"];
+    $newsDate = $input["news_date"];
+    $newsCategory = $input["news_category"];
+    $newsState = $input["news_state"];
+
+    $sql ="UPDATE news SET
             news_title = :news_title,
             news_date = :news_date, 
             news_content = :news_content,
             news_category = :news_category
-            where news_id = :news_id";
+            WHERE news_id = :news_id";
 
                 // news_image = :news_image";
 
     $news = $pdo->prepare( $sql );//使用prepare，避免隱碼攻擊
 
-
-    $news->bindValue(":news_title", $_POST["news_title"]);
-    $news->bindValue(":news_content", $_POST["news_content"]);
-    $news->bindValue(":news_date", $_POST["news_date"]);
-    $news->bindValue(":news_category", $_POST["news_category"]);
-    $news->bindValue(":news_id", $_POST["news_id"]);
-    // $news->bindValue(":news_image", $filename);
+    //id為ai，是不是不用寫? 但SQL是以where news_id帶進來的
+    $news->bindValue(':news_id', $newsId, PDO::PARAM_INT);
+    $news->bindParam(':news_title', $newsTitle, PDO::PARAM_STR);
+    $news->bindParam(':news_date', $newsDate, PDO::PARAM_STR);
+    $news->bindParam(':news_content', $newsContent, PDO::PARAM_STR);
+    $news->bindParam(':news_category', $newsCategory, PDO::PARAM_STR);
+    // $news->bindParam(":news_image", $filename);
 
     $news->execute(); //執行
 
