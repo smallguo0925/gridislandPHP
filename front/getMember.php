@@ -40,7 +40,7 @@ try {
         //屬於這個會員的訂單資料以及訂單明細
         // $sql="SELECT * from ord where mem_id = :mem_id";
         $sql="SELECT 
-        o.ord_date,o.ord_id,ord_pay,ord_state,m.mem_id,
+        o.ord_date,o.ord_id,ord_sum,ord_state,m.mem_id,
         (select 
             JSON_ARRAYAGG(
                 JSON_OBJECT(
