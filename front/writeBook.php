@@ -9,7 +9,7 @@ try {
     //連線到demo資料庫
     require_once("../../GridIsland/connectGridIsland.php");
     
-    $sql = "insert into book(mem_id, book_date, book_time, book_start_time, book_end_time, book_people, tables_type, book_state) values (:mem_id,:book_date,:book_time, :book_start_time, :book_end_time, :book_people,:tables_type,:book_state)";
+    $sql = "insert into book(mem_id, book_date, book_time, book_start_time, book_end_time, book_people, tables_type) values (:mem_id,:book_date,:book_time, :book_start_time, :book_end_time, :book_people,:tables_type)";
 
     // 編譯sql指令
     $mem = $pdo->prepare($sql);
@@ -21,7 +21,6 @@ try {
     $mem->bindValue(":book_end_time",$_POST["book_end_time"]);
     $mem->bindValue(":book_people",$_POST["book_people"]);
     $mem->bindValue(":tables_type",$_POST["tables_type"]);
-    $mem->bindValue(":book_state",$_POST["book_state"]);
     $mem->execute();
 
 
