@@ -9,7 +9,7 @@ try {
     require_once("../connectGridIsland.php");
 
     //準備sql指令
-    $sql = "select p.*,t.tag_name
+    $sql = "select p.*,t.tag_name,t.tag_category
     from prod p 
     left join prod_tag pt on (p.prod_id = pt.prod_id)
     left join tag t on (pt.tag_id = t.tag_id)
@@ -63,8 +63,12 @@ try {
         }
 
         $tag = $row['tag_name'];
+        $tagCategory = $row['tag_category'];
         if (!empty($tag)) {
-            $result['products'][$productId]['tags'][] = $tag;
+            $result['products'][$productId]['tags'][] = [
+                'tag_name' => $tag,
+                'tag_category' => $tagCategory
+            ];
         }
     }
 
