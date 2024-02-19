@@ -26,7 +26,6 @@ $sql = "update report set report_state =:report_state where report_id =:report_i
   $report = $pdo->prepare($sql);
   //用來執行不會取得result set的指令，如insert、update、delete
   $report->bindValue(':report_state',$reportData["report_state"]);
-  // report->bindValue(':report_check',$_POST["report_check"]);
   $report->bindValue(':report_id',$reportData["report_id"]);
 
   $report->execute();
