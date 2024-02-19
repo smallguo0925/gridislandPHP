@@ -9,7 +9,7 @@ try {
     require_once("../connectGridIsland.php");
 
     //準備sql指令
-    $sql = "select p.*,t.tag_name
+    $sql = "select p.*,t.tag_name,t.tag_category
     from prod p 
     left join prod_tag pt on (p.prod_id = pt.prod_id)
     left join tag t on (pt.tag_id = t.tag_id)
@@ -17,7 +17,19 @@ try {
 
     // 建立PDO Statement
     $prods = $pdo->query($sql);
-    $result = ["error" => false, "msg" => "成功取得商品資料", "products" => []];
+    $sql = "select count(*) from prod";
+    $allProd = $pdo->query($sql);
+    $allProdCount = $allProd->fetch(PDO::FETCH_ASSOC);
+    $sql = "select count(*) from prod where prod_state = 1";
+    $pProd = $pdo->query($sql);
+    $pProdCount = $pProd->fetch(PDO::FETCH_ASSOC);
+    $sql = "select count(*) from prod where prod_state = 0";
+    $upProd = $pdo->query($sql);
+    $upProdCount = $upProd->fetch(PDO::FETCH_ASSOC);
+    $sql = "select count(*) from prod where prod_discount_price is not null";
+    $disProd = $pdo->query($sql);
+    $disProdCount = $disProd->fetch(PDO::FETCH_ASSOC);
+    $result = ["error" => false, "msg" => "成功取得商品資料", "products" => [],"allProd"=>$allProdCount,"pProd"=>$pProdCount,"upProd"=>$upProdCount,"disProd"=>$disProdCount];
     while($row = $prods->fetch(PDO::FETCH_ASSOC)){
         $productId = $row['prod_id'];
         $productName = $row['prod_name'];
@@ -51,10 +63,15 @@ try {
         }
 
         $tag = $row['tag_name'];
+        $tagCategory = $row['tag_category'];
         if (!empty($tag)) {
-            $result['products'][$productId]['tags'][] = $tag;
+            $result['products'][$productId]['tags'][] = [
+                'tag_name' => $tag,
+                'tag_category' => $tagCategory
+            ];
         }
     }
+
     $result['products'] = array_values($result['products']);
 } catch (PDOException $e) {
     $result = ["error" => true, "msg" => $e->getMessage()];
