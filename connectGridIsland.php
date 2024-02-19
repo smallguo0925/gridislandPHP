@@ -6,6 +6,7 @@
 	$port = 3306;//連接的port
 	$dsn = "mysql:host=localhost;port=$port;dbname=$dbname;charset=utf8";
 
+<<<<<<< HEAD
 	
 
 	// $dbname = "tibamefe_chd104g5";
@@ -16,6 +17,8 @@
 
 	
 	
+=======
+>>>>>>> 4c43863c6f0c444fbf76e0f452e823b5b66ae0e2
 	$options = array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION, PDO::ATTR_CASE=>PDO::CASE_NATURAL);
 
 	//建立pdo物件
