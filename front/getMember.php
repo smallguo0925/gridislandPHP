@@ -31,7 +31,9 @@ try {
         $memDataRow = $memData->fetchAll(PDO::FETCH_ASSOC);
 
         //屬於這個會員的預約資料
-        $sql="SELECT * FROM book WHERE mem_id = :mem_id  order by book_date DESC" ;
+        $sql="SELECT * FROM book 
+        WHERE mem_id = :mem_id  
+        order by book_id DESC,book_date DESC" ;
         $bookInfo=$pdo->prepare($sql);
         $bookInfo->bindParam(':mem_id', $mem_id, PDO::PARAM_INT);
         $bookInfo->execute();
@@ -58,7 +60,10 @@ try {
         ) as 'orderListInfo'
         from ord o
         join mem m on o.mem_id=m.mem_id
-        where m.mem_id=:mem_id;";
+        where m.mem_id=:mem_id
+        order by o.ord_id desc
+        ;
+        ";
 
 
 
