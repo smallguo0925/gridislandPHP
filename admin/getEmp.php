@@ -1,4 +1,4 @@
-<?
+<?php
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -10,7 +10,7 @@ try {
     require_once("../connectGridIsland.php");
 
     //準備sql指令
-	$sql = "select emp_id, emp_name, emp_acct, emp_premission from emp";
+	$sql = "select emp_id, emp_name, emp_acct, emp_permission, emp_state from emp";
 
     // 建立PDO Statement
     $emp = $pdo->query($sql);
