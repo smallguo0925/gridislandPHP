@@ -21,12 +21,14 @@ header("Content-Type: application/json");
 header("Access-Control-Allow-Credentials: true");
 require_once("../../GridIsland/connectGridIsland.php");
 
-$sql = "update report set report_state =:report_state where report_id =:report_id ";
+$sql = "update report set report_state =:report_state where report_id =:report_id";
+// $sql = "update report set report_state =:report_state where msg_id =:msg_id AND report_id =:report_id";
 
   $report = $pdo->prepare($sql);
   //用來執行不會取得result set的指令，如insert、update、delete
   $report->bindValue(':report_state',$reportData["report_state"]);
   $report->bindValue(':report_id',$reportData["report_id"]);
+  // $report->bindValue(':msg_id',$reportData["msg_id"]);
 
   $report->execute();
 
