@@ -42,7 +42,7 @@ try {
         $prodImg1 = $row['prod_img1'];
         $prodImg2 = $row['prod_img2'];
         $prodImg3 = $row['prod_img3'];
-        $prodBreif = $row['prod_breif'];
+        $prodBrief = $row['prod_brief'];
 
         if (!isset($result['products'][$productId])) {
             $result['products'][$productId] = [
@@ -57,7 +57,7 @@ try {
                 'prod_img1' => $prodImg1,
                 'prod_img2' => $prodImg2,
                 'prod_img3' => $prodImg3,
-                'prod_breif' => $prodBreif,
+                'prod_brief' => $prodBrief,
                 'tags' => []  // 初始化標籤陣列
             ];
         }
