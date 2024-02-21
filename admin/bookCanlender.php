@@ -1,4 +1,4 @@
-<?
+<?php
 //需請教董老師，上線後是否把以下註解
 //跨域的設定
 header("Access-Control-Allow-Origin: *");
