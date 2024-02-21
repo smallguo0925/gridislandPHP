@@ -7,7 +7,8 @@ header("Content-Type: application/json");
 
 try {
 	//連線到剛建立的connect檔
-  require_once("../../GridIsland/connectGridIsland.php");
+  // require_once("../../GridIsland/connectGridIsland.php");
+  require_once("../connectGridIsland.php");
 
   $sql = "
     SELECT 

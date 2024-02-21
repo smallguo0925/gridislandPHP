@@ -15,7 +15,8 @@ try {
   // 允許使用 cookies 進行跨域請求
   header("Access-Control-Allow-Credentials: true");
   //連線到connect檔
-  require_once("../../GridIsland/connectGridIsland.php");
+  // require_once("../../GridIsland/connectGridIsland.php");
+  require_once("../connectGridIsland.php");
 
   $sql = "update report set report_check =:report_check where report_id =:report_id ";
 

@@ -7,7 +7,8 @@ try {
   header("Access-Control-Allow-Headers: Content-Type");
   header("Content-Type: application/json");
   //連線到connect檔
-  require_once("../../GridIsland/connectGridIsland.php");
+  // require_once("../../GridIsland/connectGridIsland.php");
+  require_once("../connectGridIsland.php");
 
   $sql = "select r.report_id, m.msg_id, r.report_reason, m.msg_content, r.report_state, r.report_check 
     FROM report r join msg m on r.msg_id = m.msg_id

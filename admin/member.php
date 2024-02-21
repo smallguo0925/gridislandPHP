@@ -5,7 +5,7 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 //允許的請求標頭
 header("Access-Control-Allow-Headers: Content-Type");
-//設定回應類型為 JSON安安
+//設定回應類型為 JSON
 header("Content-Type: application/json");
 
 ini_set("display_errors", "On"); //上線檢查用
