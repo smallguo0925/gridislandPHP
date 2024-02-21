@@ -5,7 +5,8 @@ header("Content-Type: application/json; charset=UTF-8");
 
 try {
     //連線到demo資料庫
-    require_once("../../GridIsland/connectGridIsland.php");
+    // require_once("../../GridIsland/connectGridIsland.php");
+    require_once("../connectGridIsland.php");
 
     //檢查帳戶是否存在
     $checkSql = "SELECT * FROM mem where mem_email = :mem_email";
