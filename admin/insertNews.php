@@ -1,5 +1,6 @@
 <?php
-header("Access-Control-Allow-Origin: *");
+require_once("../header.php");
+
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: multipart/form-data"); //上傳內容包含圖片。故使用form
