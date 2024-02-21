@@ -8,7 +8,7 @@ try {
     //--------------取得上傳檔案
     if ($_FILES){
         if ($_FILES["news_image"]["error"] === 0) {
-            $dir = "../images/news/"; //確認路徑
+            $dir = "../../image/news/"; //確認路徑
             if ( !file_exists($dir) ) { //確認目錄已存在
                 mkdir($dir);
             }
