@@ -65,10 +65,7 @@ try {
         $tag = $row['tag_name'];
         $tagCategory = $row['tag_category'];
         if (!empty($tag)) {
-            $result['products'][$productId]['tags'][] = [
-                'tag_name' => $tag,
-                'tag_category' => $tagCategory
-            ];
+            $result['products'][$productId]['tags'][$tagCategory] = $tag;
         }
     }
 
