@@ -42,7 +42,8 @@ try {
             throw new Exception("Failed to save the image.");
         }
 
-        $relativeFilePath = "{$userId}_{$timestamp}.png"; // 數據庫中儲存的檔名
+        // $relativeFilePath = "{$userId}_{$timestamp}.png"; // 數據庫中儲存的檔名
+        $relativeFilePath = "{$userId}.png"; // 數據庫中儲存的檔名
 
         $sql = "UPDATE mem SET mem_profile = :mem_profile WHERE mem_id = :mem_id";
         $stmt = $pdo->prepare($sql);
