@@ -34,14 +34,16 @@ try {
 
         // 使用用戶ID和當前時間戳記生成唯一文件名
         $timestamp = time();
-        $fileName = "{$userId}_{$timestamp}.png"; // 構建檔名
+        // $fileName = "{$userId}_{$timestamp}.png"; // 構建檔名
+        $fileName = "{$userId}.png"; // 構建檔名
         $filePath = $directory . $fileName; // 完整的文件路徑用於保存檔案
 
         if (file_put_contents($filePath, $imageData) === false) {
             throw new Exception("Failed to save the image.");
         }
 
-        $relativeFilePath = "{$userId}_{$timestamp}.png"; // 數據庫中儲存的檔名
+        // $relativeFilePath = "{$userId}_{$timestamp}.png"; // 數據庫中儲存的檔名
+        $relativeFilePath = "{$userId}.png"; // 數據庫中儲存的檔名
 
         $sql = "UPDATE mem SET mem_profile = :mem_profile WHERE mem_id = :mem_id";
         $stmt = $pdo->prepare($sql);
