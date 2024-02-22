@@ -34,7 +34,8 @@ try {
 
         // 使用用戶ID和當前時間戳記生成唯一文件名
         $timestamp = time();
-        $fileName = "{$userId}_{$timestamp}.png"; // 構建檔名
+        // $fileName = "{$userId}_{$timestamp}.png"; // 構建檔名
+        $fileName = "{$userId}.png"; // 構建檔名
         $filePath = $directory . $fileName; // 完整的文件路徑用於保存檔案
 
         if (file_put_contents($filePath, $imageData) === false) {
