@@ -25,7 +25,7 @@ try {
             throw new Exception("Base64 decode failed.");
         }
 
-        $directory = "../images/mem/"; // 示例路徑
+        $directory = "images/mem/"; // 示例路徑
         if (!file_exists($directory)) {
             if (!mkdir($directory, 0755, true)) {
                 throw new Exception("Failed to create directory.");
