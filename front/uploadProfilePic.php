@@ -1,13 +1,12 @@
 <?php
 // 开启错误显示，对于开发环境有用，生产环境应该关闭
-ini_set('display_errors', 0);
-error_reporting(E_ALL);
-file_put_contents("test_log.txt", "收到請求，POST數據：" . var_export($_POST, true, FILE_APPEND));
+// ini_set('display_errors', 0);
+// error_reporting(E_ALL);
+// file_put_contents("test_log.txt", "收到請求，POST數據：" . var_export($_POST, true, FILE_APPEND));
 
 require_once("../header.php");
 header('Content-Type: application/json');
 // header("Access-Control-Allow-Origin: *"); // 允許所有來源
-// header("Access-Control-Allow-Origin: http://localhost:5173");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS"); // 允許的HTTP方法
 header("Access-Control-Allow-Headers: Content-Type, Authorization"); // 允許的標頭
 

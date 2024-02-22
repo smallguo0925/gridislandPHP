@@ -11,6 +11,7 @@ try {
     require_once("../connectGridIsland.php");
     $newsId = $data["newsId"];
     $isChecked = $data["isChecked"];
+
     $sql ="UPDATE news SET
             news_state = :isChecked
             WHERE news_id = :news_id";
