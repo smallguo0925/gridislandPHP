@@ -46,7 +46,11 @@ try {
         !$stmt->execute([':mem_profile' => $relativeFilePath, ':mem_id' => $userId]);
 
         // 構建成功的回應數據
-        $result = ["error" => false, "msg" => "Profile picture updated successfully."];
+        $result = [
+            "error" => false,
+             "msg" => "Profile picture updated successfully.",
+             "newProfilePicPath" => $relativeFilePath  // 包含新圖片路徑的鍵值對
+        ];
     } else {
         // 如果沒有收到必要的數據，拋出異常
         throw new Exception("Missing data.");
