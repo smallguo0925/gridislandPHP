@@ -82,9 +82,9 @@ try {
     $prod->bindValue(":prod_intro", $_POST["prod_intro"]);
     $prod->bindValue(":prod_brief", $_POST["prod_brief"]);
 
-    $prod->bindValue(":prod_img1", isset($fileExtArray[0]) ? "prod_img1_" . $fileCount . "." . $fileExtArray[0] : null);
+    $prod->bindValue(":prod_img1", isset($fileExtArray[0]) ? "prod_img3_" . $fileCount . "." . $fileExtArray[2] : null);
     $prod->bindValue(":prod_img2", isset($fileExtArray[1]) ? "prod_img2_" . $fileCount . "." . $fileExtArray[1] : null);
-    $prod->bindValue(":prod_img3", isset($fileExtArray[2]) ? "prod_img3_" . $fileCount . "." . $fileExtArray[2] : null);
+    $prod->bindValue(":prod_img3", isset($fileExtArray[2]) ? "prod_img1_" . $fileCount . "." . $fileExtArray[0] : null);
 
     $prod->bindValue(":prod_state", $prod_state);
 
