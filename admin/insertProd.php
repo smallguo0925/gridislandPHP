@@ -6,17 +6,22 @@ header("Content-Type: multipart/form-data");
 try {
     $filename = ''; 
   
-    if ($_FILES["prod_img1"]["error"] === 0 || $_FILES["prod_img2"]["error"] === 0 || $_FILES["prod_img3"]["error"] === 0) {
+    if ($_FILES["prod_img1"]["error"] === 0 || 
+        $_FILES["prod_img2"]["error"] === 0 || 
+        $_FILES["prod_img3"]["error"] === 0) {
         $dir = "../../image/prod/"; 
 
         if ( !file_exists($dir) ) { 
             mkdir($dir);
         }
+        $fileExtArray = []; // 副檔名的陣列
+
         for ($i = 1; $i <= 3; $i++) {
             $inputName = "prod_img" . $i;
-
             if ($_FILES[$inputName]["error"] === 0) {
-                $fileExt = pathinfo($_FILES[$inputName]["name"], PATHINFO_EXTENSION);
+                
+                $fileInfo = pathinfo($_FILES[$inputName]["name"]);
+                $fileExt = $fileInfo['extension'];
         
                 // 取得已存在的檔案數量
                 $existingFiles = glob($dir . "{$inputName}*.*");
@@ -24,11 +29,14 @@ try {
         
                 // 產生新檔案名稱
                 $filename = "{$inputName}_{$fileCount}.{$fileExt}";
-        
+
+                
                 $from = $_FILES[$inputName]["tmp_name"];
                 $to = "{$dir}{$filename}";
-        
+                
                 copy($from, $to);
+
+                $fileExtArray[$i - 1] = $fileExt;
             }
         }
          //檢查檔案類型
@@ -40,7 +48,9 @@ try {
         }
 
         $maxFileSize = 3 * 1024 * 1024; 
-        if ($_FILES["prod_img1"]["size"] > $maxFileSize || $_FILES["prod_img2"]["size"] > $maxFileSize || $_FILES["prod_img3"]["size"] > $maxFileSize) {
+        if ($_FILES["prod_img1"]["size"] > $maxFileSize ||
+            $_FILES["prod_img2"]["size"] > $maxFileSize || 
+            $_FILES["prod_img3"]["size"] > $maxFileSize) {
             $result = ["error" => true, "msg" => "上傳圖片大小已超過限制 3 MB"];
             echo json_encode($result);
             exit;
@@ -71,9 +81,11 @@ try {
     $prod->bindValue(":prod_desc", $_POST["prod_desc"]);
     $prod->bindValue(":prod_intro", $_POST["prod_intro"]);
     $prod->bindValue(":prod_brief", $_POST["prod_brief"]);
-    $prod->bindValue(":prod_img1", isset($_FILES["prod_img1"]["name"]) ? "prod_img1_" . $fileCount . "." . $fileExt : null);
-    $prod->bindValue(":prod_img2", isset($_FILES["prod_img2"]["name"]) ? "prod_img2_" . $fileCount . "." . $fileExt : null);
-    $prod->bindValue(":prod_img3", isset($_FILES["prod_img3"]["name"]) ? "prod_img3_" . $fileCount . "." . $fileExt : null);
+
+    $prod->bindValue(":prod_img1", isset($fileExtArray[0]) ? "prod_img1_" . $fileCount . "." . $fileExtArray[0] : null);
+    $prod->bindValue(":prod_img2", isset($fileExtArray[1]) ? "prod_img2_" . $fileCount . "." . $fileExtArray[1] : null);
+    $prod->bindValue(":prod_img3", isset($fileExtArray[2]) ? "prod_img3_" . $fileCount . "." . $fileExtArray[2] : null);
+
     $prod->bindValue(":prod_state", $prod_state);
 
     $prod->execute(); 
