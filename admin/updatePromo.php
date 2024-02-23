@@ -8,8 +8,15 @@ header("Content-Type: multipart/form-data"); //上傳內容包含圖片。故使
 try {
     require_once("../connectGridIsland.php");
 
-    $sql ="insert into promo (promo_id, promo_code, promo_detail, promo_amount, promo_start_date, promo_end_date, marquee_state, promo_pub_start, promo_pub_end) 
-    values (null, :promo_code, :promo_detail, :promo_amount, :promo_start_date, :promo_end_date,:marquee_state, :promo_pub_start_date, :promo_pub_end_date)";
+    $sql ="UPDATE promo SET promo_code = :promo_code,
+                            promo_detail = :promo_detail,
+                            promo_amount = :promo_amount,
+                            promo_start_date = :promo_start_date,
+                            promo_end_date = :promo_end_date,
+                            marquee_state = :marquee_state,
+                            promo_pub_start = :promo_pub_start_date,
+                            promo_pub_end = :promo_pub_end_date
+            WHERE promo_id = :promo_id";
 
     $promos = $pdo->prepare( $sql );//使用prepare，避免隱碼攻擊
 
@@ -21,11 +28,12 @@ try {
     $promos->bindValue(":marquee_state", $_POST["marquee_state"]);
     $promos->bindValue(":promo_pub_start_date", $_POST["promo_pub_start_date"]);
     $promos->bindValue(":promo_pub_end_date", $_POST["promo_pub_end_date"]);
+    $promos->bindValue(":promo_id", $_POST["promo_id"]);
 
 
     $promos->execute(); //執行
 
-    $result = ["error" => false,"msg"=>"成功上傳優惠碼"];
+    $result = ["error" => false,"msg"=>"成功修改優惠碼"];
     
 } catch (PDOException $e) {
     $result = ["error" => true, "msg" => $e->getMessage()];
