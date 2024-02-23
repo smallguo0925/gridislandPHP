@@ -61,18 +61,19 @@ try {
         }
     }
     require_once("../connectGridIsland.php");
-    $sql ="insert into prod (prod_id, prod_name, prod_price, prod_discount_price, prod_date, prod_intro, prod_brief, prod_img1, prod_img2, prod_img3, prod_state) values (null, :prod_name, :prod_price, :prod_discount_price, :prod_date, :prod_intro, :prod_brief, :prod_img1, :prod_img2, :prod_img3, :prod_state)";
+    $sql ="insert into prod (prod_id, prod_name, prod_price, prod_discount_price, prod_date, prod_intro, prod_desc, prod_brief, prod_img1, prod_img2, prod_img3, prod_state) values (null, :prod_name, :prod_price, :prod_discount_price, :prod_date, :prod_intro, :prod_desc, :prod_brief, :prod_img1, :prod_img2, :prod_img3, :prod_state)";
     $prod = $pdo->prepare( $sql );
     $prod_state = isset($_POST["prod_state"]) ? $_POST["prod_state"] : null; 
     $prod->bindValue(":prod_name", $_POST["prod_name"]);
     $prod->bindValue(":prod_discount_price", $_POST["prod_discount_price"], PDO::PARAM_INT);
     $prod->bindValue(":prod_price", $_POST["prod_price"], PDO::PARAM_INT);
     $prod->bindValue(":prod_date", $_POST["prod_date"]);
+    $prod->bindValue(":prod_desc", $_POST["prod_desc"]);
     $prod->bindValue(":prod_intro", $_POST["prod_intro"]);
     $prod->bindValue(":prod_brief", $_POST["prod_brief"]);
-    $prod->bindValue(":prod_img1", $filename);
-    $prod->bindValue(":prod_img2", $filename);
-    $prod->bindValue(":prod_img3", $filename);
+    $prod->bindValue(":prod_img1", isset($_FILES["prod_img1"]["name"]) ? "prod_img1_" . $fileCount . "." . $fileExt : null);
+    $prod->bindValue(":prod_img2", isset($_FILES["prod_img2"]["name"]) ? "prod_img2_" . $fileCount . "." . $fileExt : null);
+    $prod->bindValue(":prod_img3", isset($_FILES["prod_img3"]["name"]) ? "prod_img3_" . $fileCount . "." . $fileExt : null);
     $prod->bindValue(":prod_state", $prod_state);
 
     $prod->execute(); 

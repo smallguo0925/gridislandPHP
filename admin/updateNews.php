@@ -2,43 +2,35 @@
 require_once("../header.php");
 
 header("Access-Control-Allow-Headers: Content-Type");
-header("Content-Type: multipart/form-data"); //上傳內容包含圖片。故使用form
+header("Content-Type: multipart/form-data"); 
 
 try {
-    $filename = ''; //初始化 $filename
-    //--------------取得上傳檔案
+    $filename = '';
     if ($_FILES){
         if ($_FILES["news_image"]["error"] === 0) {
-            $dir = "../../image/news/"; //確認路徑
-            if ( !file_exists($dir) ) { //確認目錄已存在
+            $dir = "../../image/news/"; 
+            if ( !file_exists($dir) ) {
                 mkdir($dir);
             }
-            $fileExt = pathinfo($_FILES["news_image"]["name"], PATHINFO_EXTENSION);//假設是sara.png，用pathingo取出附檔名。
-    
-            //取得已存在的檔案數量
-            $existingFiles = glob($dir . "news_img*.png"); //調整檔案類型和前綴
+            $fileExt = pathinfo($_FILES["news_image"]["name"], PATHINFO_EXTENSION);
+
+            $existingFiles = glob($dir . "news_img*.*"); 
             $fileCount = count($existingFiles) + 1;
     
-            //產生新檔案名稱
-            $filename = "news_img" . $fileCount . ".png";
-    
+            $filename = "news_img".$fileCount.{$fileExt};
             $from = $_FILES["news_image"]["tmp_name"];
-    
             $to = "$dir{$filename}";
-            copy($from, $to); //把傳到暫存區的檔案，拷貝出來。
+            copy($from, $to); 
     
-             //檢查檔案類型
-            $allowedFileTypes = ['jpg', 'jpeg', 'png'];
+            $allowedFileTypes = ['jpg', 'jpeg', 'png', 'webp'];
             if (!in_array(strtolower($fileExt), $allowedFileTypes)) {
                 $result = ["error" => true, "msg" => "不支援該檔案類型"];
                 echo json_encode($result);
                 exit;
             }
-    
-            //檢查檔案大小
-            $maxFileSize = 5 * 1024 * 1024; //最大5MB
+            $maxFileSize = 2 * 1024 * 1024;
             if ($_FILES["news_image"]["size"] > $maxFileSize) {
-                $result = ["error" => true, "msg" => "檔案大小超過限制"];
+                $result = ["error" => true, "msg" => "圖片大小超過 2MB 限制"];
                 echo json_encode($result);
                 exit;
             }
@@ -61,8 +53,6 @@ try {
         }
 
     }
-
-
     require_once("../connectGridIsland.php");
 
     if ($filename) {
@@ -73,11 +63,8 @@ try {
             news_category = :news_category,
             news_image = :news_image
             WHERE news_id = :news_id";
-
-    $news = $pdo->prepare( $sql );//使用prepare，避免隱碼攻擊
-
+    $news = $pdo->prepare( $sql );
     $news->bindValue(":news_id", intval($_POST['news_id']), PDO::PARAM_INT);
-
     $news->bindValue(":news_title", $_POST["news_title"]);
     $news->bindValue(":news_content", $_POST["news_content"]);
     $news->bindValue(":news_date", $_POST["news_date"]);
@@ -91,22 +78,15 @@ try {
             news_category = :news_category
             WHERE news_id = :news_id";
 
-    $news = $pdo->prepare( $sql );//使用prepare，避免隱碼攻擊
-
+    $news = $pdo->prepare( $sql );
     $news->bindValue(":news_id", intval($_POST['news_id']), PDO::PARAM_INT);
-
     $news->bindValue(":news_title", $_POST["news_title"]);
     $news->bindValue(":news_content", $_POST["news_content"]);
     $news->bindValue(":news_date", $_POST["news_date"]);
     $news->bindValue(":news_category", $_POST["news_category"]);
     }
-
-    $news->execute(); //執行
-
+    $news->execute(); 
     $result = ["error" => false,"msg"=>"成功修改最新消息"];
-    // ","image"=>$filename]
-	
-
     
 } catch (PDOException $e) {
     $result = ["error" => true, "msg" => $e->getMessage(),"test"=>$_POST["news_id"]];
