@@ -89,7 +89,17 @@ try {
     $prod->bindValue(":prod_state", $prod_state);
 
     $prod->execute(); 
-    $result = ["error" => false,"msg"=>"成功上傳商品"];
+    $prod_id =$pdo->lastInsertId();
+    $tags=[$_POST["ppl"],$_POST["diff"],$_POST["category"]];
+
+    $sql = "INSERT INTO prod_tag (prod_id, tag_id)VALUES($prod_id,:tag_id)";
+    $prod_tag = $pdo->prepare($sql);
+    foreach($tags as $key => $item){
+        $prod_tag->bindValue(":tag_id",(int)$item);
+        $prod_tag->execute();
+    }
+
+    $result = ["error" => false, "msg"=>"成功上傳商品","test"=>$_POST["ppl"]];
 } catch (PDOException $e) {
     $result = ["error" => true, "msg" => $e->getMessage()];
 }
