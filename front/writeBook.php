@@ -7,7 +7,7 @@ header("Content-Type: application/json");
 
 try {
     //連線到demo資料庫
-    require_once("../../GridIsland/connectGridIsland.php");
+    require_once("../connectGridIsland.php");
     
     $sql = "insert into book(mem_id, book_date, book_time, book_start_time, book_end_time, book_people, tables_type) values (:mem_id,:book_date,:book_time, :book_start_time, :book_end_time, :book_people,:tables_type)";
 
