@@ -26,7 +26,7 @@ try {
     $sql = "select count(*) from prod where prod_state = 0";
     $upProd = $pdo->query($sql);
     $upProdCount = $upProd->fetch(PDO::FETCH_ASSOC);
-    $sql = "select count(*) from prod where prod_discount_price is not null";
+    $sql = "select count(*) from prod where prod_discount_price is not null and prod_discount_price != 0";
     $disProd = $pdo->query($sql);
     $disProdCount = $disProd->fetch(PDO::FETCH_ASSOC);
     $result = ["error" => false, "msg" => "成功取得商品資料", "products" => [],"allProd"=>$allProdCount,"pProd"=>$pProdCount,"upProd"=>$upProdCount,"disProd"=>$disProdCount];
