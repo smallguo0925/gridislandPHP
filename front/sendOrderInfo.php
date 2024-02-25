@@ -23,7 +23,7 @@ try {
     $ord_tel = $orderData->order->ord_tel;
     $promo = $orderData->order->promo;
     $ord_payment = $orderData->order->ord_payment;
-
+    // 將訂單資訊傳進資料庫
     $sql = "INSERT INTO ord(ord_id,mem_id,ord_date,ord_sum,ord_promo,ord_delivery,ord_pay,ord_addr,ord_name,ord_tel,promo_id,ord_payment)
             VALUES (null,:mem_id,now(),:ord_sum,:ord_promo,:ord_delivery,:ord_pay,:ord_addr,:ord_name,:ord_tel,:promo,:ord_payment)";
     $ord = $pdo->prepare($sql);
@@ -40,8 +40,8 @@ try {
     $ord->bindValue(":ord_payment", $ord_payment);
     
     $ord->execute();
-    $ordId = $pdo->lastInsertId();
-
+    $ordId = $pdo->lastInsertId(); // 上一個傳進資料庫的訂單 ID
+    // 將訂單項目傳進資料庫
     $sql = "INSERT INTO ord_item values($ordId,:prod_id,:quantity,:item_price)";
     $ord_item = $pdo->prepare($sql);
     foreach($cartArray as $key =>$item){
@@ -51,6 +51,7 @@ try {
         $ord_item->execute();
     }
 
+    // 優惠碼使用紀錄傳進資料庫
     if($promo != null){
         $sql="INSERT INTO promo_record (promo_id,mem_id,promo_record) values(:promo_id,:mem_id,now())";
         $promoRecord = $pdo->prepare($sql);
