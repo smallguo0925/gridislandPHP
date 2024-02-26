@@ -26,14 +26,14 @@ try {
     $promos->bindValue(":promo_start_date", $_POST["promo_start_date"]);
     $promos->bindValue(":promo_end_date", $_POST["promo_end_date"]);
     $promos->bindValue(":marquee_state", $_POST["marquee_state"]);
-    $promos->bindValue(":promo_pub_start_date", $_POST["promo_pub_start_date"]);
-    $promos->bindValue(":promo_pub_end_date", $_POST["promo_pub_end_date"]);
+    $promos->bindValue(":promo_pub_start_date", $_POST["promo_pub_start_date"] == "null"?null:$_POST["promo_pub_start_date"]);
+    $promos->bindValue(":promo_pub_end_date", $_POST["promo_pub_end_date"]== "null"?null:$_POST["promo_pub_end_date"]);
     $promos->bindValue(":promo_id", $_POST["promo_id"]);
 
 
     $promos->execute(); //執行
 
-    $result = ["error" => false,"msg"=>"成功修改優惠碼"];
+    $result = ["error" => false,"msg"=>"成功修改優惠碼","test"=>$_POST["promo_pub_end_date"]];
     
 } catch (PDOException $e) {
     $result = ["error" => true, "msg" => $e->getMessage()];

@@ -19,8 +19,8 @@ try {
     $promos->bindValue(":promo_start_date", $_POST["promo_start_date"]);
     $promos->bindValue(":promo_end_date", $_POST["promo_end_date"]);
     $promos->bindValue(":marquee_state", $_POST["marquee_state"]);
-    $promos->bindValue(":promo_pub_start_date", $_POST["promo_pub_start_date"]);
-    $promos->bindValue(":promo_pub_end_date", $_POST["promo_pub_end_date"]);
+    $promos->bindValue(":promo_pub_start_date", $_POST["promo_pub_start_date"] == "null"?null: $_POST["promo_pub_start_date"]);
+    $promos->bindValue(":promo_pub_end_date", $_POST["promo_pub_end_date"]=="null"?null:$_POST["promo_pub_end_date"]);
 
 
     $promos->execute(); //執行
