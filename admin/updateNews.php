@@ -1,8 +1,8 @@
 <?php
 require_once("../header.php");
-
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
-header("Content-Type: multipart/form-data"); 
+header("Content-Type: multipart/form-data");
 
 try {
     $filename = '';
@@ -16,8 +16,9 @@ try {
 
             $existingFiles = glob($dir . "news_img*.*"); 
             $fileCount = count($existingFiles) + 1;
-    
-            $filename = "news_img".$fileCount.{$fileExt};
+            
+            $filename = "news_img" . $fileCount . "." . $fileExt;
+
             $from = $_FILES["news_image"]["tmp_name"];
             $to = "$dir{$filename}";
             copy($from, $to); 
