@@ -1,5 +1,5 @@
 <?php
-header("Access-Control-Allow-Origin: *");
+require_once("../header.php");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
@@ -11,7 +11,7 @@ session_start();
 try{
   require_once("../connectGridIsland.php");
   // $sql = "select mem_id, mem_name, mem_addr, mem_email, mem_tel, mem_game_state, mem_bug_state, mem_profile, mem_nickname, mem_gender, mem_birthday from mem where mem_email=:memEmail"; 
-  $sql = "select * from mem where mem_email = :memEmail";
+  $sql = "select mem_id, mem_name, mem_addr, mem_email, mem_tel, mem_game_state, mem_bug_state, mem_profile, mem_nickname, mem_gender, mem_birthday, mem_state from mem where mem_email = :memEmail";
   
   $member = $pdo->prepare($sql);
 
@@ -27,7 +27,7 @@ try{
     $addMember->bindValue(":memName", $_POST["mem_name"]);
     $addMember->execute();
 
-    $sql = "select mem_id, mem_name, mem_addr, mem_email, mem_tel, mem_game_state, mem_bug_state, mem_profile, mem_nickname, mem_gender, mem_birthday from mem where mem_email=:memEmail";
+    $sql = "select mem_id, mem_name, mem_addr, mem_email, mem_tel, mem_game_state, mem_bug_state, mem_profile, mem_nickname, mem_gender, mem_birthday, mem_state from mem where mem_email=:memEmail";
     $newMember = $pdo->prepare($sql);
     $newMember->bindValue(":memEmail", $_POST["mem_account"]);
     $newMember->execute();
