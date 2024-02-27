@@ -1,5 +1,5 @@
 <?php
-header("Access-Control-Allow-Origin: *"); // 允許所有來源
+require_once("../header.php");
 header("Content-Type: application/json; charset=UTF-8");
 
 

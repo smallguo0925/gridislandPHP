@@ -5,7 +5,7 @@ $checkData = json_decode(file_get_contents("php://input"),true);
 
 try {
   // 允許所有來源訪問
-  header("Access-Control-Allow-Origin: *");
+  require_once("../header.php");
   // 允許特定的 HTTP 方法進行跨域請求
   header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
   // 允許特定的 HTTP 首部進行跨域請求

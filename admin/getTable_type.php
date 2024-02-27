@@ -1,7 +1,7 @@
 <?php
 //需請教董老師，上線後是否把以下註解
 //跨域的設定
-header("Access-Control-Allow-Origin: *");
+require_once("../header.php");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");

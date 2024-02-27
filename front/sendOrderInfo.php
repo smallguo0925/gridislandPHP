@@ -1,6 +1,6 @@
 <?php
 ini_set("display_errors", "On");
-header("Access-Control-Allow-Origin: *");
+require_once("../header.php");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");

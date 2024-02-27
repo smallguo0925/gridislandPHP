@@ -1,6 +1,6 @@
 <?php
 //跨域資源共享設定，允許所有來源訪問
-header("Access-Control-Allow-Origin: *");
+require_once("../header.php");
 //允許使用的 HTTP 方法
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 //允許的請求標頭
