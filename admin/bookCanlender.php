@@ -10,7 +10,7 @@ header("Content-Type: application/json");
 
 try {
 	//連線到剛建立的connect檔
-    require_once("../../GridIsland/connectGridIsland.php");
+    require_once("../connectGridIsland.php");
 
   //準備sql指令，我要拿news裡全部的資料，到時候有帳號密碼的檔案不能這樣拿。
     $sql = "SELECT b.book_id, b.mem_id, b.book_date, b.book_time, b.book_start_time , b.book_end_time , b.book_people, b.tables_type, b.book_state, m.mem_name, ty.table_type_name
