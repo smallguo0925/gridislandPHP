@@ -6,7 +6,7 @@ header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 try {
     require_once("../connectGridIsland.php");
-	$sql = "SELECT * from promo where promo_state = 1";
+	$sql = "SELECT * from promo where marquee_state = 1 and promo_state = 1";
     $promos = $pdo->query($sql);
     $promosRow = $promos->fetchAll(PDO::FETCH_ASSOC);
 	$result = ["error" => false, "msg" => "成功取得優惠碼資料", "promos" => $promosRow];
