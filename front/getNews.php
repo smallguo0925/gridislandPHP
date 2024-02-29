@@ -1,5 +1,4 @@
 <?php
-//要請問老師，上線後是否把該句註解
 require_once("../header.php");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -7,13 +6,8 @@ header("Content-Type: application/json");
 ini_set("display_errors", "On");
 
 try {
-	//連線
     require_once("../connectGridIsland.php");
-
-    //準備sql指令
-	$sql = "select * from news WHERE news_state = 1";
-
-    // 建立PDO Statement
+	$sql = "SELECT news_id, news_content, news_title, news_date, news_image, news_category from news WHERE news_state = 1 ORDER BY news_date DESC";
     $news = $pdo->query($sql);
 
     $newsRows = $news->fetchAll(PDO::FETCH_ASSOC);
@@ -22,5 +16,4 @@ try {
     $result = ["error" => true, "msg" => $e->getMessage()];
 }
 echo json_encode($result);
-
 ?>
