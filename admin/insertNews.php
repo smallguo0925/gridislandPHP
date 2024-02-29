@@ -30,7 +30,7 @@ try {
         copy($from, $to); //把傳到暫存區的檔案，拷貝出來。
 
          //檢查檔案類型
-        $allowedFileTypes = ['jpg', 'jpeg', 'png'];
+        $allowedFileTypes = ['jpg', 'jpeg', 'png','webp'];
         if (!in_array(strtolower($fileExt), $allowedFileTypes)) {
             $result = ["error" => true, "msg" => "不支援該檔案類型"];
             echo json_encode($result);
